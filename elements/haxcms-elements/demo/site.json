@@ -40,12 +40,12 @@
       "logo": "files/3450183.png"
     },
     "theme": {
-      "element": "clean-one",
+      "element": "polaris-theme",
       "path": "@haxtheweb/clean-two/clean-two.js",
       "name": "Clean two theme",
       "thumbnail": "build/es6/node_modules/@haxtheweb/app-hax/lib/assets/images/PartyStyle.svg",
       "variables": {
-        "image": "assets/banner.jpg",
+        "image": "assets/psu-mark.png",
         "hexCode": "#009dc7",
         "cssVariable": "--simple-colors-default-theme-purple-7",
         "icon": "lrn:network"

@@ -54,7 +54,8 @@ class PolarisTheme extends HAXCMSOperationButtons(
           color: black;
           --polaris-bg-color: #f5f5f5;
           --polaris-content-bg-color: #ffffff;
-          --polaris-header-bg-color: #001e44;
+          --polaris-header-bg-color: #262c3a;
+          --polaris-nav-bg-color: #1173ca;
           --polaris-footer-secondary-bg-color: #262c3a;
           --polaris-footer-primary-bg-color: #141720;
           background-color: var(--polaris-bg-color);
@@ -79,12 +80,6 @@ class PolarisTheme extends HAXCMSOperationButtons(
           color: #1173ca;
         }
 
-        .surplus-background {
-          background:linear-gradient(0deg, rgba(0,30,68,255), rgba(0,30,68,0.3)), url("https://surplus.psu.edu/sites/surplus/files/styles/hero/public/2023-08/LionSurplus.jpg?h=37d1d32e&itok=XaQQJ98E");
-          background-size:cover;
-          padding: 100px 50px;
-          color: white;
-        }
         site-active-title {
           font-size: 28px;
           line-height: 1;
@@ -97,29 +92,30 @@ class PolarisTheme extends HAXCMSOperationButtons(
           font-size: 36px;
         }
         site-breadcrumb {
-          margin: 0 0 0px 4px;
+          margin: 0 0 16px 4px;
         }
 
         header .wrap {
-          padding: 40px 0 0;
+          padding: 40px 0;
         }
 
         .content.wrap {
           clear: both;
-          padding-top: 0px;
+          padding-top: 40px;
         }
 
         .site-inner,
         .wrap {
-          margin: 0;
+          margin: 0 auto;
+          max-width: 1140px;
         }
 
         article {
           border-radius: 3px;
           margin-bottom: 40px;
           margin-bottom: 40px;
-          padding: 0px;
-          padding: 0px;
+          padding: 40px 40px 24px;
+          padding: 40px 40px 24px;
           background-color: var(--polaris-content-bg-color);
         }
 
@@ -129,7 +125,6 @@ class PolarisTheme extends HAXCMSOperationButtons(
 
         nav {
           background-color: var(--polaris-nav-bg-color);
-          line-height: 0;
         }
         .site-title {
           color: #ffffff;
@@ -138,15 +133,9 @@ class PolarisTheme extends HAXCMSOperationButtons(
           width: 63%;
           margin-left: 30px;
           padding: 12px 0px 0px 0px;
-          float: right;
-          text-align: right;
+          float: left;
           font-family: "Lato", sans-serif;
           font-weight: 700;
-        }
-        .nav-search-cluster {
-          display: inline-flex;
-          justify-content: flex-end;
-          width: 100%;
         }
         site-top-menu {
           --site-top-menu-bg: var(--polaris-nav-bg-color);
@@ -158,7 +147,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
           clear: both;
           font-family: "Lato", sans-serif;
           line-height: 1.5;
-          
+          width: 100%;
         }
         site-top-menu::part(button) {
           font-size: 16px;
@@ -166,15 +155,12 @@ class PolarisTheme extends HAXCMSOperationButtons(
           font-weight: 400;
           text-transform: uppercase;
         }
-        site-top-menu::part(button):hover {
-          background-color: var(--polaris-header-bg-color);
-          text-decoration: underline;
-        }
         site-top-menu::part(indicator) {
           margin-top: -8px;
         }
-        main h3 {
-          border: 3px solid blue;
+        main {
+          float: left;
+          width: 740px;
         }
         aside {
           float: right;
@@ -196,6 +182,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
         }
 
         site-modal {
+          float: right;
           --simple-modal-titlebar-background: var(--polaris-nav-bg-color);
         }
 
@@ -248,9 +235,6 @@ class PolarisTheme extends HAXCMSOperationButtons(
         .site-title a,
         .site-title a:hover {
           color: #ededed;
-        }
-        header {
-          background-color: var(--polaris-header-bg-color);
         }
         header a img {
           margin-bottom: -4px;
@@ -373,7 +357,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
             padding: 0px 60px;
           }
           header .wrap {
-            padding: 20px 0 0;
+            padding: 20px 0;
           }
           .content.wrap {
             width: 100%;
@@ -386,6 +370,19 @@ class PolarisTheme extends HAXCMSOperationButtons(
   render() {
     return html`
       <header itemtype="http://schema.org/WPHeader">
+        <site-modal
+          @site-modal-click="${this.siteModalClick}"
+          .part="${this.editMode ? `edit-mode-active` : ``}"
+          ?disabled="${this.editMode}"
+          icon="icons:search"
+          title="Search site"
+          class="search-modal-btn"
+          button-label="Search"
+          part="search-btn"
+          position="right"
+        >
+          <site-search></site-search>
+        </site-modal>
         <div class="wrap">
           <site-region name="header"></site-region>
           <slot name="header">
@@ -408,40 +405,23 @@ class PolarisTheme extends HAXCMSOperationButtons(
                   part="site-title"
                 ></site-title>
               </p>
-<!-- 
+
               <p class="site-description" itemprop="description">
                 ${this.siteDescription}
-              </p> -->
+              </p>
             </div>
-            <div class="nav-search-cluster">
-              <nav itemtype="http://schema.org/SiteNavigationElement">
-                <site-top-menu indicator="none"></site-top-menu>
-              </nav>
-              <site-modal
-                @site-modal-click="${this.siteModalClick}"
-                .part="${this.editMode ? `edit-mode-active` : ``}"
-                ?disabled="${this.editMode}"
-                icon="icons:search"
-                title="Search site"
-                class="search-modal-btn"
-                button-label="Search"
-                part="search-btn"
-                position="right"
-              >
-              <site-search></site-search>
-              </site-modal>
-          </div>
           </slot>
         </div>
       </header>
+      <nav itemtype="http://schema.org/SiteNavigationElement">
+        <site-top-menu indicator="none"></site-top-menu>
+      </nav>
       <div class="content site-inner wrap">
         <main>
           <article id="contentcontainer">
             <div id="haxcms-theme-top"></div>
             <site-breadcrumb part="page-breadcrumb"></site-breadcrumb>
-            <div class="surplus-background">
             <site-active-title part="page-title"></site-active-title>
-            </div>
             <site-active-tags
               part="page-tags"
               auto-accent-color
@@ -451,7 +431,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
             </section>
           </article>
         </main>
-        <!-- <aside
+        <aside
           role="complementary"
           aria-label="Primary Sidebar"
           itemtype="http://schema.org/WPSideBar"
@@ -464,7 +444,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
               dynamic-methodology="ancestor"
             ></site-children-block>
           </section>
-        </aside> -->
+        </aside>
       </div>
       <footer
         itemtype="http://schema.org/WPFooter"
