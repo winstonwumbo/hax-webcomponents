@@ -144,7 +144,7 @@ class SiteTopMenu extends LitElement {
           list-style: none;
         }
         .children-menu-card {
-          display: none;
+          display: flex;
         }
         .wrapper:hover .children-menu-card {
           display: flex;

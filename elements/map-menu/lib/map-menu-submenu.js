@@ -10,7 +10,7 @@ class MapMenuSubmenu extends LitElement {
       css`
         :host {
           display: block;
-          overflow: hidden;
+          overflow: visible;
         }
         :host([collapsable]) > map-menu-builder {
           cursor: pointer;
@@ -87,7 +87,9 @@ class MapMenuSubmenu extends LitElement {
     super();
     this.editControls = false;
     this.iconLabel = null;
+    this.navOrientation = "horizontal";
     this.opened = false;
+    this.isNested = false;
     this.collapsable = true;
     this.expandChildren = false;
     this.hovered = false;
@@ -118,11 +120,23 @@ class MapMenuSubmenu extends LitElement {
     }, 0);
   }
 
-  __active() {
+  __active(e) {
     this.hovered = true;
+    if (e.type == "mouseover"){
+      if (this.isHorizontal && this.isNested==false && this.opened == false){
+        this.opened = true;
+      }
+    }
   }
-  __deactive() {
-    this.hovered = false;
+
+  __deactive(e) {
+    this.hovered = false;     
+    if (e.type == "mouseleave"){
+      if (this.isHorizontal && this.isNested==false && this.opened == true){
+        this.opened = false;
+      }
+    }
+    console.log(e.type + "Hello world")
   }
 
   // align the collapse state w/ this state
@@ -132,6 +146,15 @@ class MapMenuSubmenu extends LitElement {
     e.preventDefault();
     e.stopPropagation();
     this.opened = e.detail.expanded;
+    if(this.isHorizontal){
+      this.dispatchEvent(
+        new CustomEvent("opened-changed", {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+        })
+      )
+    }
   }
   /**
    * LitElement life cycle - render
@@ -195,6 +218,10 @@ class MapMenuSubmenu extends LitElement {
       label: {
         type: String,
       },
+      navOrientation: {
+        type: String,
+        attribute: "nav-orientation"
+      },
       hovered: {
         type: Boolean,
         reflect: true,
@@ -214,6 +241,15 @@ class MapMenuSubmenu extends LitElement {
         type: Boolean,
         attribute: "opened",
         reflect: true,
+      },
+      isNested: {
+        type: Boolean,
+        attribute: "is-nested",
+        reflect: true,
+      },
+      isHorizontal: {
+        type: Boolean,
+        attribute: "is-horizontal"
       },
       collapsable: {
         type: Boolean,
@@ -265,7 +301,9 @@ class MapMenuSubmenu extends LitElement {
   __toggleHeader(e) {
     // catch the event and end propagation
     e.stopPropagation();
-    this.opened = !this.opened;
+    if(!this.isHorizontal){
+      this.opened = !this.opened;
+    }
     this.dispatchEvent(
       new CustomEvent("toggle-updated", {
         bubbles: true,

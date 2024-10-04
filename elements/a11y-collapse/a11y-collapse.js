@@ -164,6 +164,7 @@ class A11yCollapse extends DDD {
           :host #content-inner {
             max-height: 0;
             overflow-y: var(--a11y-collapse-overflow-y, hidden);
+            overflow-x: var(--a11y-collapse-overflow-x, auto);
           }
           :host([expanded]) #content {
             padding: var(
@@ -564,6 +565,7 @@ class A11yCollapse extends DDD {
    */
   _onClick() {
     if (!this.disabled) {
+      console.log("onclick")
       this.toggle();
       this.shadowRoot.querySelector("simple-tooltip").hide();
       /**

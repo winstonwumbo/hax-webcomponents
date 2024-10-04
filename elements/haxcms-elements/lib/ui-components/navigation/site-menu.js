@@ -26,10 +26,10 @@ class SiteMenu extends HAXCMSThemeParts(LitElement) {
           position: relative;
         }
         map-menu {
-          padding: var(--site-menu-padding);
+          padding: var(--site-menu-padding, 0px);
           background-color: var(--site-menu-background-color);
           color: var(--site-menu-color, inherit);
-          --map-menu-container-padding: var(--site-menu-container-padding);
+          --map-menu-container-padding: var(--site-menu-container-padding, 0px);
           --map-menu-container-background-color: var(
             --site-menu-container-background-color
           );
@@ -40,11 +40,11 @@ class SiteMenu extends HAXCMSThemeParts(LitElement) {
           --map-menu-font-size: var(--site-menu-font-size, 18px);
           overflow-y: var(
             --map-menu-overflow,
-            var(--map-menu-overflow-y, auto)
+            var(--map-menu-overflow-y, visible)
           );
           overflow-x: var(
             --map-menu-overflow,
-            var(--map-menu-overflow-x, hidden)
+            var(--map-menu-overflow-x, visible)
           );
           scrollbar-color: var(--site-menu-scrollbar-color, #252737);
           scrollbar-width: thick;
@@ -102,6 +102,7 @@ class SiteMenu extends HAXCMSThemeParts(LitElement) {
     this.preventAutoScroll = false;
     this.trackIcon = "";
     this.editControls = false;
+    this.isHorizontal = false;
     this.__disposer = [];
     autorun((reaction) => {
       this.routerManifest = Object.assign({}, toJS(store.routerManifest));
@@ -120,6 +121,7 @@ class SiteMenu extends HAXCMSThemeParts(LitElement) {
         .part="map-menu ${this.editMode ? `edit-mode-active` : ``}"
         .manifest="${this.routerManifest}"
         ?edit-controls="${this.editControls}"
+        ?is-horizontal="${this.isHorizontal}"
         ?active-indicator="${!this.hideActiveIndicator}"
         ?auto-scroll="${!this.preventAutoScroll}"
         @active-item="${this.mapMenuActiveChanged}"
@@ -261,12 +263,13 @@ class SiteMenu extends HAXCMSThemeParts(LitElement) {
     );
     // executing this here ensures that the timing is correct with highlighting the active item in the menu
     autorun((reaction) => {
+      if(this.isHorizontal == false){
       this.activeId = toJS(store.activeId);
       this.__disposer.push(reaction);
       setTimeout(() => {
         this.shadowRoot.querySelector("map-menu").selected = this.activeId;
       }, 100);
-    });
+  }});
   }
   /**
    * LitElement life cycle - properties definition
@@ -283,6 +286,11 @@ class SiteMenu extends HAXCMSThemeParts(LitElement) {
       editControls: {
         type: Boolean,
         attribute: "edit-controls",
+      },
+      isHorizontal: {
+        type: Boolean,
+        attribute: "is-horizontal",
+        reflect: true,
       },
       /**
        * acitvely selected item

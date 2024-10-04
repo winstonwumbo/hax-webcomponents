@@ -18,12 +18,15 @@ class MapMenuBuilder extends LitElement {
     super();
     this.editControls = false;
     this.items = [];
+    this.isNested = false;
+    this.isHorizontal = false;
   }
   /**
    * LitElement life cycle - render
    */
   render() {
     return html`
+    <div class="nav-spacer">
       ${this.items
         ? this.items.map(
             (item) => html`
@@ -33,14 +36,17 @@ class MapMenuBuilder extends LitElement {
                       itemtitle="${item.title}"
                       id="${item.id}"
                       url="${item.slug}"
+                      ?edit-controls="${this.editControls}"
                       icon="${item.metadata && item.metadata.icon
                         ? item.metadata.icon
                         : null}"
                       icon-label="${item.metadata && item.metadata.pageType
                         ? item.metadata.pageType
                         : ""}"
-                      ?edit-controls="${this.editControls}"
                       selected="${this.selected}"
+                      ?opened="${this.isNested}"
+                      ?is-nested="${this.isNested}"
+                      ?is-horizontal="${this.isHorizontal}"
                       ?published="${this.getPublishedStatus(item)}"
                       ?hide-in-menu="${this.hideInMenuStatus(item)}"
                     >
@@ -48,6 +54,7 @@ class MapMenuBuilder extends LitElement {
                         .items="${item.children}"
                         ?edit-controls="${this.editControls}"
                         selected="${this.selected}"
+                        ?is-nested="${true}"
                       ></map-menu-builder>
                     </map-menu-submenu>
                   `
@@ -73,6 +80,7 @@ class MapMenuBuilder extends LitElement {
             `,
           )
         : ""}
+        </div>
     `;
   }
 
@@ -109,6 +117,15 @@ class MapMenuBuilder extends LitElement {
         type: Boolean,
         attribute: "edit-controls",
       },
+      isNested: {
+        type: Boolean,
+        attribute: "is-nested",
+        reflect: true,
+      },
+      isHorizontal: {
+        type: Boolean,
+        attribute: "is-horizontal"
+      }
     };
   }
   createRenderRoot() {

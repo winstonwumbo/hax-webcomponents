@@ -14,7 +14,7 @@ class MapMenuItem extends I18NMixin(LitElement) {
           display: block;
           position: relative;
           font-size: var(--map-menu-font-size);
-          overflow: var(--map-menu-item-overflow, hidden);
+          overflow:  visible;
         }
         simple-icon-lite {
           display: inline-flex;

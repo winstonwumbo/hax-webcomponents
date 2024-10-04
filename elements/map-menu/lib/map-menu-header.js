@@ -320,6 +320,7 @@ class MapMenuHeader extends I18NMixin(LitElement) {
     }
   }
   __selectedChanged(selected, id) {
+    console.log("selected-changed")
     if (selected === id) {
       if (!this.parentNode.expanded) {
         this.dispatchEvent(
@@ -343,11 +344,14 @@ class MapMenuHeader extends I18NMixin(LitElement) {
   }
 
   __tap(e) {
+    console.log("tap")
+
     // send to toggle event
     this.__toggleEventHandler(e);
   }
 
   __keypress(e) {
+    console.log("keypress")
     // send to toggle event
     if (e.code === "Enter") {
       this.__toggleEventHandler(e);
@@ -355,6 +359,7 @@ class MapMenuHeader extends I18NMixin(LitElement) {
   }
 
   __toggleEventHandler(e) {
+    console.log("toggleeventhandler")
     if (!this.parentNode.expanded) {
       this.dispatchEvent(
         new CustomEvent("toggle-header", {

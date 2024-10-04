@@ -22,6 +22,8 @@ import "@haxtheweb/haxcms-elements/lib/ui-components/layout/site-region.js";
 import "@haxtheweb/haxcms-elements/lib/ui-components/blocks/site-children-block.js";
 import { autorun, toJS } from "mobx";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
+import "@haxtheweb/haxcms-elements/lib/ui-components/navigation/site-menu.js";
+
 /**
  * `polaris-theme`
  * `A 2nd polaris theme`
@@ -82,7 +84,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
         .surplus-background {
           background:linear-gradient(0deg, rgba(0,30,68,255), rgba(0,30,68,0.3)), url("https://surplus.psu.edu/sites/surplus/files/styles/hero/public/2023-08/LionSurplus.jpg?h=37d1d32e&itok=XaQQJ98E");
           background-size:cover;
-          padding: 100px 50px;
+          padding: 450px 50px 60px;
           color: white;
         }
         site-active-title {
@@ -101,7 +103,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
         }
 
         header .wrap {
-          padding: 40px 0 0;
+          padding: 0px 0 0;
         }
 
         .content.wrap {
@@ -137,7 +139,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
         .title-area {
           width: 63%;
           margin-left: 30px;
-          padding: 12px 0px 0px 0px;
+          padding: 20px 10px 10px 0px;
           float: right;
           text-align: right;
           font-family: "Lato", sans-serif;
@@ -145,10 +147,24 @@ class PolarisTheme extends HAXCMSOperationButtons(
         }
         .nav-search-cluster {
           display: inline-flex;
-          justify-content: flex-end;
+          justify-content: center;
+          --map-menu-parent-font-color: white;
           width: 100%;
+          height: 100%;
         }
-        site-top-menu {
+        .spacer-bar {
+          background-color: #1E407C;
+          display: flex;
+          justify-content: flex-end;
+          gap: 1.25rem;
+        }
+        .spacer-bar a{
+          color: white;
+          font-size: 16px;
+          font-family: Roboto Condensed,Arial Narrow,Arial,Tahoma,sans-serif;
+          margin: auto 0;
+        }
+        site-menu {
           --site-top-menu-bg: var(--polaris-nav-bg-color);
           --site-top-menu-indicator-color: #ffffff;
           --site-top-menu-link-active-color: #ffffff;
@@ -156,8 +172,11 @@ class PolarisTheme extends HAXCMSOperationButtons(
           --site-top-menu-link-bg-color-hover: #ffffff;
           --site-top-menu-link-bg-color-hover: #0b4b83;
           clear: both;
-          font-family: "Lato", sans-serif;
+          font-family: Roboto Condensed,Arial Narrow,Arial,Tahoma,sans-serif;
           line-height: 1.5;
+        }
+        site-menu map-menu-builder map-menu-item,
+        site-menu map-menu-builder map-menu-submenu {
           
         }
         site-top-menu::part(button) {
@@ -175,6 +194,9 @@ class PolarisTheme extends HAXCMSOperationButtons(
         }
         main h3 {
           border: 3px solid blue;
+        }
+        #slot {
+          padding: 0px 80px;
         }
         aside {
           float: right;
@@ -197,10 +219,13 @@ class PolarisTheme extends HAXCMSOperationButtons(
 
         site-modal {
           --simple-modal-titlebar-background: var(--polaris-nav-bg-color);
+          display: inline-block;
         }
 
         .footer-secondary {
-          background-color: var(--polaris-footer-secondary-bg-color);
+          /* background-color: var(--polaris-footer-secondary-bg-color); */
+          background-color: #001E44;
+          /* nittany navy */
           color: #999;
           clear: both;
           padding: 40px 16px 16px;
@@ -208,16 +233,39 @@ class PolarisTheme extends HAXCMSOperationButtons(
 
         footer {
           background-color: var(--polaris-footer-primary-bg-color);
+          font-family: Roboto Condensed,Arial Narrow,Arial,Tahoma,sans-serif;
         }
 
         .footer-primary {
           color: #ededed;
+          background-color: #1E407C; 
+          /* Beaver Blue */
           font-size: 14px;
           padding: 40px 16px;
           text-align: center;
-          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
           line-height: 22px;
           font-weight: 300;
+        }
+        .footer-contacts {
+          float: left;
+        }
+        .footer-links {
+          display: inline-flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          float: right;
+          color: white;
+          width: 400px;
+          margin-right: 200px;
+          column-gap: 20px;
+          row-gap: 20px;
+        }
+        .footer-link-item {
+          display: flex;
+          flex: 1 1;
+          flex-direction: column;
+          flex-wrap: nowrap;
         }
         .site-inner {
           clear: both;
@@ -230,7 +278,7 @@ class PolarisTheme extends HAXCMSOperationButtons(
           display: inline-flex;
           width: 218px;
           float: left;
-          margin: 0px 30px 0px 40px;
+          margin: 10px 30px 0px 40px;
         }
         #mark a {
           display: block;
@@ -296,17 +344,19 @@ class PolarisTheme extends HAXCMSOperationButtons(
           margin: 0 0 24px;
         }
         .footer-secondary a:hover {
-          color: #ddd;
+          color: #CCE9FF;
+          text-decoration: underline;
         }
 
         .footer-secondary a {
-          border-bottom: 1px solid #666;
-          color: #999;
+          /* border-bottom: 1px solid #666; */
+          color: #CCE9FF;
+          text-decoration: none;
         }
         .footer-secondary p {
           margin: 0 0 24px;
           padding: 0;
-          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
           font-size: 16px;
           font-weight: 300;
           line-height: 26px;
@@ -389,35 +439,8 @@ class PolarisTheme extends HAXCMSOperationButtons(
         <div class="wrap">
           <site-region name="header"></site-region>
           <slot name="header">
-            <div id="mark">
-              <a href="${this.imageLink}">
-                <img
-                  src="${this.image}"
-                  alt="${this.imageAlt}"
-                  loading="lazy"
-                  decoding="async"
-                  fetchpriority="low"
-                />
-              </a>
-            </div>
-            <div class="title-area">
-              <p class="site-title" itemprop="headline">
-                <site-title
-                  .part="${this.editMode ? `edit-mode-active` : ``}"
-                  ?disabled="${this.editMode}"
-                  part="site-title"
-                ></site-title>
-              </p>
-<!-- 
-              <p class="site-description" itemprop="description">
-                ${this.siteDescription}
-              </p> -->
-            </div>
-            <div class="nav-search-cluster">
-              <nav itemtype="http://schema.org/SiteNavigationElement">
-                <site-top-menu indicator="none"></site-top-menu>
-              </nav>
-              <site-modal
+            <div class="spacer-bar">
+            <site-modal
                 @site-modal-click="${this.siteModalClick}"
                 .part="${this.editMode ? `edit-mode-active` : ``}"
                 ?disabled="${this.editMode}"
@@ -430,6 +453,25 @@ class PolarisTheme extends HAXCMSOperationButtons(
               >
               <site-search></site-search>
               </site-modal>
+              <a>GIVE</a>
+              <a>APPLY</a>
+              <a>REPORT A CONCERN</a>
+            </div>
+            <div id="mark">
+              <a href="${this.imageLink}">
+                <img
+                  src="${this.image}"
+                  alt="${this.imageAlt}"
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                />
+              </a>
+            </div>
+            <div class="nav-search-cluster">
+              <nav itemtype="http://schema.org/SiteNavigationElement">
+              <site-menu part="site-menu" is-horizontal></site-menu>
+              </nav>
           </div>
           </slot>
         </div>
@@ -472,13 +514,75 @@ class PolarisTheme extends HAXCMSOperationButtons(
       >
         <section class="footer-secondary">
           <div class="wrap">
-            <slot name="footer-secondary"></slot>
+            <slot name="footer-secondary">
+              <div class="footer-contacts">
+              <p>The Pennsylvania State University</p>
+              <p>201 Old Main</p>
+              <p>University Park, PA 16802</p>
+              Phone: 1-814-865-4700
+              </div>
+              <div class="footer-links">
+                <div class="footer-link-item">
+                  <h2>Explore</h2>
+                  <a href="https://www.psu.edu/news/">News</a>
+                  <a>Careers</a>
+                  <a>Colleges</a>
+                  <a>Campuses</a>
+                  <a>Contact Us</a>
+                </div>
+                <div class="footer-link-item">
+                  <h2>Explore</h2>
+                  <a>News</a>
+                  <a>Careers</a>
+                  <a>Colleges</a>
+                  <a>Campuses</a>
+                  <a>Contact Us</a>
+                </div>
+                <div class="footer-link-item">
+                  <h2>Explore</h2>
+                  <a>News</a>
+                  <a>Careers</a>
+                  <a>Colleges</a>
+                  <a>Campuses</a>
+                  <a>Contact Us</a>
+                </div>
+                <div class="footer-link-item">
+                  <h2>Explore</h2>
+                  <a>News</a>
+                  <a>Careers</a>
+                  <a>Colleges</a>
+                  <a>Campuses</a>
+                  <a>Contact Us</a>
+                </div>
+                <div class="footer-link-item">
+                  <h2>Explore</h2>
+                  <a>News</a>
+                  <a>Careers</a>
+                  <a>Colleges</a>
+                  <a>Campuses</a>
+                  <a>Contact Us</a>
+                </div>
+                <div class="footer-link-item">
+                  <h2>Explore</h2>
+                  <a>News</a>
+                  <a>Careers</a>
+                  <a>Colleges</a>
+                  <a>Campuses</a>
+                  <a>Contact Us</a>
+                </div>
+              </div>
+            </slot>
             <site-region name="footerSecondary"></site-region>
           </div>
         </section>
         <section class="footer-primary">
           <div class="wrap">
-            <slot name="footer-primary"></slot>
+            <slot name="footer-primary">Privacy Statements
+Non Discrimination
+Accessibility
+Equal Opportunity
+Legal Statements
+The Pennsylvania State University © 2024</slot>
             <site-region name="footerPrimary"></site-region>
           </div>
         </section>
