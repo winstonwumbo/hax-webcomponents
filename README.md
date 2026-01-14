@@ -62,7 +62,7 @@ yarn install
 ### Lerna
 This monorepo has configuration settings for lerna. Lerna is for the core team, but to bulk run commands against the monorepo consider things like `npx lerna run build` to run build against all elements. This is useful when getting ready to ship.
 
-### Syncing Your Fork
+### Syncing Your Fork 
 ```
 git remote add upstream https://github.com/haxtheweb/webcomponents.git
 git fetch upstream
